@@ -125,49 +125,4 @@ module.exports = {
       }
     })
   }
-
-  //   getFilterEngineer: async (req, res, _next) => {
-  //     let { filter, limit, page } = req.query
-  //     console.log(filter)
-  //     console.log(req.query)
-  //     if (!limit) {
-  //       limit = 10
-  //     } else {
-  //       limit = parseInt(limit)
-  //     }
-
-  //     if (!page) {
-  //       page = 1
-  //     } else {
-  //       page = parseInt(page)
-  //     }
-
-  //     const data = {
-  //       filter: filter,
-  //       limit: limit,
-  //       offset: (page - 1) * limit
-  //     }
-
-  //     try {
-  //       const result = await getFilterEngineerModel(data)
-
-//       if (result.length) {
-//         res.status(200).send({
-//           success: true,
-//           message: 'Project succes filter ',
-//           data: result
-//         })
-//       } else {
-//         res.status(404).send({
-//           success: false,
-//           message: 'Data failed to filter'
-//         })
-//       }
-//     } catch (error) {
-//       res.status(500).send({
-//         success: false,
-//         message: 'Internal server error!'
-//       })
-//     }
-//   }
 }

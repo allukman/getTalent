@@ -80,43 +80,4 @@ module.exports = {
     })
   }
 
-  // getFilterEngineerModel: (data) => {
-  //   return new Promise((resolve, reject) => {
-  //     let query
-
-  //     if (data.filter === 'name') {
-  //       query = `
-  //         SELECT acc_nama FROM account
-  //       `
-  //     } else if (data.filter === 'skill') {
-  //       query = `
-  //         SELECT sk_nama_skill FROM skill
-  //       `
-  //     } else if (data.filter === 'lokasi') {
-  //       query = `
-  //         SELECT en_domisili FROM engineer
-  //       `
-  //     } else if (data.filter === 'freelance') {
-  //       query = `
-  //         SELECT * FROM engineer WHERE en_job_type = 'freelance'
-  //       `
-  //     } else if (data.filter === 'fulltime') {
-  //       query = `
-  //       SELECT * FROM engineer WHERE en_job_type = 'fulltime'
-  //     `
-  //     } else {
-  //       query = ' SELECT * FROM engineer '
-  //     }
-
-  //     db.query(query, (error, results, _fields) => {
-  //       if (!error) {
-  //         resolve(results)
-  //       } else {
-  //         reject(error)
-  //         console.log(error)
-  //       }
-  //     })
-  //   })
-  // }
-
 }

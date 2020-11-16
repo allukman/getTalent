@@ -79,12 +79,12 @@ module.exports = {
       if (result.affectedRows) {
         res.status(200).send({
           success: true,
-          message: 'Success add project!'
+          message: 'Success add account!'
         })
       } else {
         res.status(400).send({
           success: false,
-          message: 'Submit project failed!'
+          message: 'Submit account failed!'
         })
       }
     } catch {

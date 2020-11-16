@@ -47,8 +47,8 @@ module.exports = {
                     } else {
                         await createCompanyModel({
                             acc_id: result.insertId,
-                            com_perusahaan: data.com_perusahaan,
-                            com_jabatan: data.com_jabatan
+                            com_company: data.com_company,
+                            com_position: data.com_position
                         })
                     }
                    resolve(result)

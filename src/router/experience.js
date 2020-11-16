@@ -1,11 +1,11 @@
 const { Router } = require('express')
-const { createExperience, getExperienceById , getExperienceByEngId, updateExperience, deleteExperience} = require('../controllers/experience')
+const { createExperience, getExperienceById, getExperienceByEngId, updateExperience, deleteExperience } = require('../controllers/experience')
 const router = Router()
 
-router.post('/',createExperience)
+router.post('/', createExperience)
 router.get('/:xpId', getExperienceById)
-router.get('/engineer/:engineerId',getExperienceByEngId)
-router.put('/:xpId',updateExperience)
-router.delete('/:xpId',deleteExperience)
+router.get('/engineer/:engineerId', getExperienceByEngId)
+router.put('/:xpId', updateExperience)
+router.delete('/:xpId', deleteExperience)
 
-module.exports = router         
+module.exports = router

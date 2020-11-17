@@ -16,7 +16,7 @@ module.exports = {
       } else {
         res.status(404).send({
           success: false,
-          message: `Data project with id ${accountId} not found`
+          message: `account with id ${accountId} not found`
         })
       }
     } catch (error) {

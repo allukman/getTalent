@@ -55,10 +55,20 @@ module.exports = {
   updateCompany: async (req, res) => {
     try {
       const { comId } = req.params
+      const { comCompany, comPosition, comBidang, comCity, comDescription, comInstagram, comLinkedin } = req.body
+      const setData = {
+        com_company: comCompany,
+        com_position: comPosition,
+        com_bidang: comBidang,
+        com_city: comCity,
+        com_description: comDescription,
+        com_instagram: comInstagram,
+        com_linkedin: comLinkedin,
+        com_photo: req.file === undefined ? '' : req.file.filename
+      }
       const resultSelect = await getCompanyByIdModel(comId)
-
       if (resultSelect.length) {
-        const result = await updateCompanyModel(comId, req.body)
+        const result = await updateCompanyModel(comId, setData)
         if (result.affectedRows) {
           res.status(200).send({
             status: true,

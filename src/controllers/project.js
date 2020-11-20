@@ -3,7 +3,15 @@ const { createProjectModel, getProjectByIdModel, getProjectByComIdModel, updateP
 module.exports = {
   createProject: async (req, res) => {
     try {
-      const result = await createProjectModel(req.body)
+      const { comId, pjNamaProject, pjDeskripsi, pjDeadline } = req.body
+      const setData = {
+        com_id: comId,
+        pj_nama_project: pjNamaProject,
+        pj_deskripsi: pjDeskripsi,
+        pj_deadline: pjDeadline,
+        pj_gambar: req.file === undefined ? '' : req.file.filename
+      }
+      const result = await createProjectModel(setData)
       if (result.affectedRows) {
         res.status(200).send({
           success: true,
@@ -75,10 +83,18 @@ module.exports = {
   updateProject: async (req, res) => {
     try {
       const { pjId } = req.params
+      const { comId, pjNamaProject, pjDeskripsi, pjDeadline } = req.body
+      const setData = {
+        com_id: comId,
+        pj_nama_project: pjNamaProject,
+        pj_deskripsi: pjDeskripsi,
+        pj_deadline: pjDeadline,
+        pj_gambar: req.file === undefined ? '' : req.file.filename
+      }
       const resultSelect = await getProjectByIdModel(pjId)
 
       if (resultSelect.length) {
-        const result = await updateProjectModel(pjId, req.body)
+        const result = await updateProjectModel(pjId, setData)
         if (result.affectedRows) {
           res.status(200).send({
             status: true,

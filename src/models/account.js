@@ -29,27 +29,57 @@ module.exports = {
     })
   },
 
-  createAccountModel: (data) => {
-    return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO account SET ?'
-      const dataAcc = {
-        acc_nama: data.acc_nama,
-        acc_email: data.acc_email,
-        acc_phone: data.acc_phone,
-        acc_password: data.acc_password,
-        acc_level: data.acc_level
-      }
+  // createAccountEngineerModel: (setData) => {
+  //   return new Promise((resolve, reject) => {
+  //     const newData = {
+  //       acc_nama: setData.acc_nama,
+  //       acc_email: setData.acc_email,
+  //       acc_password: setData.acc_password,
+  //       acc_phone: setData.acc_phone,
+  //       acc_level: setData.acc_level
+  //     }
+  //     const query = 'INSERT INTO account SET ?'
+  //     db.query(query, newData, async (err, result, fields) => {
+  //       if (!err) {
+  //         if (parseInt(setData.acc_level) === 1) {
+  //           await createEngineerModel(result.insertId)
+  //         } else {
+  //           await createCompanyModel({
+  //             acc_id: result.insertId,
+  //             com_company: setData.com_company,
+  //             com_position: setData.com_position
+  //           })
+  //         }
+  //         resolve(result)
+  //       } else {
+  //         reject(new Error(err))
+  //       }
+  //     })
+  //   })
+  // },
 
-      db.query(query, dataAcc, async (err, result, fields) => {
+  createAccountEngineerModel: (setData) => {
+    return new Promise((resolve, reject) => {
+      const newData = {
+        acc_nama: setData.acc_nama,
+        acc_email: setData.acc_email,
+        acc_password: setData.acc_password,
+        acc_phone: setData.acc_phone,
+        acc_level: setData.acc_level
+      }
+      const query = 'INSERT INTO account SET ?'
+      db.query(query, newData, async (err, result, fields) => {
         if (!err) {
-          if (parseInt(data.acc_level) === 1) {
+          if (parseInt(setData.acc_level) === 1) {
             await createEngineerModel(result.insertId)
-          } else {
+          } else if (parseInt(setData.acc_level) === 2) {
             await createCompanyModel({
               acc_id: result.insertId,
-              com_company: data.com_company,
-              com_position: data.com_position
+              com_company: setData.com_company,
+              com_position: setData.com_position
             })
+          } else {
+            resolve(result)
           }
           resolve(result)
         } else {
@@ -59,10 +89,10 @@ module.exports = {
     })
   },
 
-  updateAccountModel: (accountId, data) => {
+  updateAccountModel: (accountId, setData) => {
     return new Promise((resolve, reject) => {
       const query = ` UPDATE account SET ? WHERE acc_id = ${accountId}`
-      db.query(query, data, (err, result, _fields) => {
+      db.query(query, setData, (err, result, _fields) => {
         if (!err) {
           resolve(result)
         } else {
@@ -82,5 +112,18 @@ module.exports = {
         }
       })
     })
+  },
+
+  checkAccountModel: (email) => {
+    return new Promise((resolve, reject) => {
+      db.query('SELECT * FROM account WHERE acc_email = ?', email, (err, result, fields) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
   }
+
 }

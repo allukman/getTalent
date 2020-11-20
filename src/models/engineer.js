@@ -57,20 +57,27 @@ module.exports = {
     })
   },
 
-  searchEngineerModel: (searchKey, searchValue, limit, offset, callback) => {
+  searchEngineerModel: (rules, callback) => {
     db.query(`SELECT 
         en.en_id,
         ac.acc_id,
         ac.acc_nama,
         ac.acc_email,
         ac.acc_phone,
+        sk.sk_nama_skill,
         en.en_job_title,
         en.en_job_type,
         en.en_domisili
-        FROM engineer en JOIN account ac ON (ac.acc_id = en.acc_id)          
-        WHERE ${searchKey} LIKE '%${searchValue}%' 
-        LIMIT ${limit}       
-        OFFSET ${offset}`,
+        FROM engineer en 
+        JOIN account ac 
+          ON (ac.acc_id = en.acc_id)
+        JOIN skill sk 
+          ON (sk.en_id = en.en_id)         
+        WHERE ac.acc_nama LIKE '%${rules.search}%' 
+        OR sk.sk_nama_skill LIKE '%${rules.search}%'
+        GROUP BY ac.acc_id
+        LIMIT ${rules.limit}       
+        OFFSET ${rules.offset}`,
     (err, result, fields) => {
       if (!err) {
         callback(result)
@@ -78,6 +85,113 @@ module.exports = {
         callback(err)
       }
     })
-  }
+  },
+  FilterEngineerModel: (paginate) => {
+    return new Promise((resolve, reject) => {
+      const filter = parseInt(paginate.filter)
+      let query
 
+      if (filter === 0) {
+        query = `
+          SELECT en.en_id,
+               ac.acc_id,
+               ac.acc_nama,
+               en.en_job_title,
+               en.en_job_type,
+               en.en_domisili
+            FROM engineer en
+            JOIN account ac
+              ON ac.acc_id = en.acc_id
+            JOIN skill sk
+              ON sk.en_id = en.en_id
+        GROUP BY ac.acc_id
+        ORDER BY ac.acc_nama ASC
+           LIMIT ${paginate.limit} 
+          OFFSET ${paginate.offset}
+        `
+      } else if (filter === 1) {
+        query = `
+          SELECT en.en_id,
+               ac.acc_id,
+               ac.acc_nama,
+               en.en_job_title,
+               en.en_job_type,
+               en.en_domisili
+            FROM engineer en
+            JOIN account ac
+              ON ac.acc_id = en.acc_id
+            JOIN skill sk
+              ON sk.en_id = en.en_id
+        GROUP BY ac.acc_id
+        ORDER BY sk.sk_nama_skill ASC
+           LIMIT ${paginate.limit} 
+          OFFSET ${paginate.offset}
+        `
+      } else if (filter === 2) {
+        query = `
+          SELECT en.en_id,
+               ac.acc_id,
+               ac.acc_nama,
+               en.en_job_title,
+               en.en_job_type,
+               en.en_domisili
+            FROM engineer en
+            JOIN account ac
+              ON ac.acc_id = en.acc_id
+            JOIN skill sk
+              ON sk.en_id = en.en_id
+        GROUP BY ac.acc_id
+        ORDER BY en.en_domisili ASC
+           LIMIT ${paginate.limit} 
+          OFFSET ${paginate.offset}
+        `
+      } else if (filter === 3) {
+        query = `
+          SELECT en.en_id,
+                 ac.acc_id,
+                 ac.acc_nama,
+                 en.en_job_title,
+                 en.en_job_type,
+                 en.en_domisili
+            FROM engineer en
+            JOIN account ac
+              ON ac.acc_id = en.acc_id
+            JOIN skill sk
+              ON sk.en_id = en.en_id
+           WHERE en.en_job_type = 'freelance'
+        GROUP BY ac.acc_id
+        ORDER BY en.en_job_type ASC
+           LIMIT ${paginate.limit} 
+          OFFSET ${paginate.offset}
+        `
+      } else {
+        query = `
+          SELECT en.en_id,
+                 ac.acc_id,
+                 ac.acc_nama,
+                 en.en_job_title,
+                 en.en_job_type,
+                 en.en_domisili
+            FROM engineer en
+            JOIN account ac
+              ON ac.acc_id = en.acc_id
+            JOIN skill sk
+              ON sk.en_id = en.en_id
+           WHERE en.en_job_type = 'full time'
+        GROUP BY ac.acc_id
+        ORDER BY en.en_job_type ASC
+           LIMIT ${paginate.limit} 
+          OFFSET ${paginate.offset}
+        `
+      }
+
+      db.query(query, (error, results, _fields) => {
+        if (!error) {
+          resolve(results)
+        } else {
+          reject(error)
+        }
+      })
+    })
+  }
 }

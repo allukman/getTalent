@@ -1,4 +1,7 @@
-const { getAccountByIdModel, getAccountModel, createAccountModel, updateAccountModel, deleteAccountModel } = require('../models/account')
+const { getAccountByIdModel, getAccountModel, createAccountEngineerModel, updateAccountModel, deleteAccountModel, checkAccountModel } = require('../models/account')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require('dotenv')
 
 module.exports = {
 
@@ -73,19 +76,41 @@ module.exports = {
       })
     }
   },
+
   createAccount: async (req, res) => {
+    const { accName, accEmail, accPhone, accPassword, accLevel, comCompany, comPosition } = req.body
+    const salt = bcrypt.genSaltSync(10)
+    const encryptPassword = bcrypt.hashSync(accPassword, salt)
+
+    const setData = {
+      acc_nama: accName,
+      acc_email: accEmail,
+      acc_phone: accPhone,
+      acc_password: encryptPassword,
+      acc_level: accLevel,
+      com_company: comCompany,
+      com_position: comPosition
+    }
     try {
-      const result = await createAccountModel(req.body)
-      if (result.affectedRows) {
-        res.status(200).send({
-          success: true,
-          message: 'Success add account!'
+      const checkEmail = await checkAccountModel(accEmail)
+      if (checkEmail.length >= 1) {
+        res.status(500).send({
+          success: false,
+          message: 'email has been registered!'
         })
       } else {
-        res.status(400).send({
-          success: false,
-          message: 'Submit account failed!'
-        })
+        const result = await createAccountEngineerModel(setData)
+        if (result.affectedRows) {
+          res.status(200).send({
+            success: true,
+            message: 'Success add account!'
+          })
+        } else {
+          res.status(400).send({
+            success: false,
+            message: 'Submit account failed!'
+          })
+        }
       }
     } catch {
       res.status(500).send({
@@ -97,10 +122,21 @@ module.exports = {
   updateAccount: async (req, res) => {
     try {
       const { accountId } = req.params
-      const resultSelect = await getAccountByIdModel(accountId)
+      const { accName, accEmail, accPhone, accPassword, accLevel } = req.body
+      const salt = bcrypt.genSaltSync(10)
+      const encryptPassword = bcrypt.hashSync(accPassword, salt)
 
+      const setData = {
+        acc_nama: accName,
+        acc_email: accEmail,
+        acc_phone: accPhone,
+        acc_password: encryptPassword,
+        acc_level: accLevel
+      }
+
+      const resultSelect = await getAccountByIdModel(accountId)
       if (resultSelect.length) {
-        const result = await updateAccountModel(accountId, req.body)
+        const result = await updateAccountModel(accountId, setData)
         if (result.affectedRows) {
           res.status(200).send({
             status: true,
@@ -115,7 +151,7 @@ module.exports = {
       } else {
         res.status(400).send({
           success: false,
-          message: `Project with id ${accountId} not Found`
+          message: `Account with id ${accountId} not Found`
         })
       }
     } catch {
@@ -146,6 +182,50 @@ module.exports = {
         res.status(404).send({
           success: false,
           message: `account with id ${accountId} not found`
+        })
+      }
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error'
+      })
+    }
+  },
+
+  loginAccount: async (req, res) => {
+    try {
+      const { accEmail, accPassword } = req.body
+      const dataUser = await checkAccountModel(accEmail)
+
+      if (dataUser.length >= 1) {
+        const checkPassword = await bcrypt.compareSync(accPassword, dataUser[0].acc_password)
+        if (checkPassword) {
+          const { acc_id, acc_email, acc_level, acc_phone } = dataUser[0]
+          let payload = {
+            acc_id,
+            acc_email,
+            acc_level,
+            acc_phone
+          }
+
+          const token = jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '1h' })
+          payload = { ...payload, token }
+
+          res.status(200).send({
+            success: true,
+            message: 'success login!',
+            data: payload
+          })
+        } else {
+          res.status(402).send({
+            success: false,
+            message: 'Wrong password!'
+          })
+        }
+      } else {
+        res.status(400).send({
+          success: false,
+          message: 'Email not registered!'
         })
       }
     } catch (error) {

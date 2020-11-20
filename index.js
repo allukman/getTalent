@@ -1,9 +1,9 @@
 const express = require('express')
-require('dotenv').config
+require('dotenv').config()
 const bodyParser = require('body-parser')
 const app = express()
-const db = require('./src/helpers/db')
 const port = process.env.PORT
+const morgan = require('morgan')
 
 const accountRouter = require('./src/router/account')
 const companyRouter = require('./src/router/company')
@@ -13,8 +13,22 @@ const experienceRouter = require('./src/router/experience')
 const portofolioRouter = require('./src/router/portofolio')
 const projectRouter = require('./src/router/project')
 const hireRouter = require('./src/router/hire')
+const cors = require('cors')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(morgan('dev'))
+app.use(cors())
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-requested-With, Content-type, Accept, Authorization'
+  )
+  next()
+})
+
+app.use('/image', express.static('./uploads'))
 
 app.use('/account', accountRouter)
 app.use('/company', companyRouter)

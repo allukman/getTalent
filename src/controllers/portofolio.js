@@ -3,7 +3,18 @@ const { createPortofolioModel, getPortofolioByIdModel, getPortofolioByEngIdModel
 module.exports = {
   createPortofolio: async (req, res) => {
     try {
-      const result = await createPortofolioModel(req.body)
+      const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
+      const setData = {
+        en_id: enId,
+        pr_aplikasi: prAplikasi,
+        pr_deskripsi: prDeskripsi,
+        pr_link_pub: prLinkPub,
+        pr_link_repo: prLinkRepo,
+        pr_tp_kerja: prTpKerja,
+        pr_type: prType,
+        pr_photo: req.file === undefined ? '' : req.file.filename
+      }
+      const result = await createPortofolioModel(setData)
       if (result.affectedRows) {
         res.status(200).send({
           success: true,
@@ -75,10 +86,21 @@ module.exports = {
   updatePortofolio: async (req, res) => {
     try {
       const { prId } = req.params
+      const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
+      const setData = {
+        en_id: enId,
+        pr_aplikasi: prAplikasi,
+        pr_deskripsi: prDeskripsi,
+        pr_link_pub: prLinkPub,
+        pr_link_repo: prLinkRepo,
+        pr_tp_kerja: prTpKerja,
+        pr_type: prType,
+        pr_photo: req.file === undefined ? '' : req.file.filename
+      }
       const resultSelect = await getPortofolioByIdModel(prId)
 
       if (resultSelect.length) {
-        const result = await updatePortofolioModel(prId, req.body)
+        const result = await updatePortofolioModel(prId, setData)
         if (result.affectedRows) {
           res.status(200).send({
             status: true,

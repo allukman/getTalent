@@ -98,6 +98,7 @@ module.exports = {
                ac.acc_nama,
                en.en_job_title,
                en.en_job_type,
+               sk.sk_nama_skill,
                en.en_domisili
             FROM engineer en
             JOIN account ac
@@ -116,6 +117,7 @@ module.exports = {
                ac.acc_nama,
                en.en_job_title,
                en.en_job_type,
+               sk.sk_nama_skill,
                en.en_domisili
             FROM engineer en
             JOIN account ac

@@ -54,6 +54,24 @@ module.exports = {
     })
   },
 
+  getSkillNameByEngIdModel: (engineerId) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+            SELECT sk_nama_skill
+              FROM skill
+             WHERE ?
+          `
+
+      db.query(query, { en_id: engineerId }, (error, results, _fields) => {
+        if (!error) {
+          resolve(results)
+        } else {
+          reject(error)
+        }
+      })
+    })
+  },
+
   updateSkillModel: (skId, data) => {
     return new Promise((resolve, reject) => {
       const query = `UPDATE skill SET ? WHERE sk_id = ${skId}`

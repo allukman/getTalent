@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2020 at 10:13 AM
+-- Generation Time: Dec 24, 2020 at 12:31 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.19
 
@@ -61,7 +61,7 @@ INSERT INTO `account` (`acc_id`, `acc_nama`, `acc_email`, `acc_phone`, `acc_pass
 (56, 'leviathan', 'leviathan1@gmail.com', '081423152142', '$2b$10$FdD62E4ov06fxQgObKVPEeF6DY5Ipn/fRKTgH4i1wM99t9MdFnDCK', 1, '2020-11-18 13:21:48', '2020-11-18 13:21:48'),
 (57, 'lukman', 'lukman1@gmail.com', '081423152142', '$2b$10$fXO2s8ppSDYrjS6mvEnHTuyOgLlpxGgUj7hN9QZMQ0j8lwRfV0mte', 1, '2020-11-19 03:14:06', '2020-11-19 03:14:06'),
 (58, 'lukman2', 'lukman2@gmail.com', '08221321324', '$2b$10$Yo/zmXJS35F6vUotJWMxMuhuBVUC81y90YF3Pf5YIDWb6RIliqPVu', 2, '2020-11-19 03:16:16', '2020-11-19 03:16:16'),
-(59, 'lukman', 'lukman3@gmail.com', '081423152142', '$2b$10$hMRHXnIhuxcW1Ycks2Bxk.bBp2RNp3lLKzUNiTmWRnHR2lqf9gCJC', 0, '2020-11-19 03:39:56', '2020-11-19 03:39:56');
+(59, 'lukman3', 'lukman3@gmail.com', '081728371284', '$2b$10$lTyIwv.JWCO48dBjPnt/9.rVwHNt/Hc8sKSflan4tli8sBqu6XuTC', 0, '2020-11-19 03:39:56', '2020-11-19 03:39:56');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE `company` (
 INSERT INTO `company` (`com_id`, `acc_id`, `com_company`, `com_position`, `com_bidang`, `com_city`, `com_description`, `com_instagram`, `com_linkedin`, `com_photo`, `com_createAt`, `com_updateAt`) VALUES
 (8, 43, 'PT. MENCARI CINTA SEJATI', 'manager', 'elektronik', 'bandung', '-', '-', '-', '-', '2020-11-18 00:49:32', '2020-11-18 00:49:32'),
 (9, 44, 'PT. INDONESIA MENCARI BAKAT', 'Human resource', 'software', 'jakarta', '-', '-', '-', '-', '2020-11-18 00:50:35', '2020-11-18 00:50:35'),
-(10, 45, 'PT. CITRA SEJAHTERA 3', 'Human resource', 'industri', 'jakarta', '-', '-', '-', 'photo-1605790026768.png', '2020-11-18 00:51:50', '2020-11-18 00:51:50'),
+(10, 45, 'PT. CITRA SEJAHTERA 3', 'Human resource', 'industri', 'bandung', '-', '-', '-', 'photo-1605790026768.png', '2020-11-18 00:51:50', '2020-11-18 00:51:50'),
 (11, 48, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:00:38', '2020-11-18 12:00:38'),
 (12, 49, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:09:38', '2020-11-18 12:09:38'),
 (14, 51, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:11:47', '2020-11-18 12:11:47'),

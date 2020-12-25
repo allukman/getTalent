@@ -1,9 +1,33 @@
 const { getAllEngineerModel, getEngineerByIdModel, updateEngineerModel, searchEngineerModel, FilterEngineerModel } = require('../models/engineer')
-
+const isEmpty = require('lodash.isempty')
 module.exports = {
   getAllEngineer: async (req, res) => {
+    let { search, limit, page } = req.query
+
+    if (!limit) {
+      limit = 10
+    } else {
+      limit = parseInt(limit)
+    }
+
+    if (!page) {
+      page = 1
+    } else {
+      page = parseInt(page)
+    }
+
+    const paginate = {
+      search: search,
+      limit: limit,
+      offset: (page - 1) * limit
+    }
     try {
-      const result = await getAllEngineerModel()
+      let result
+      if (isEmpty(search)) {
+        result = await getAllEngineerModel(paginate)
+      } else {
+        result = await searchEngineerModel(paginate)
+      }
       if (result.length) {
         res.status(200).send({
           success: true,
@@ -25,29 +49,6 @@ module.exports = {
     }
   },
 
-  // getAllEngineer: async (req, res) => {
-  //   try {
-  //     const result = await getAllEngineerModel()
-  //     if (result.length) {
-  //       res.status(200).send({
-  //         success: true,
-  //         message: 'Engineer list',
-  //         result: `${result.length}`,
-  //         data: result
-  //       })
-  //     } else {
-  //       res.status(400).send({
-  //         success: false,
-  //         message: 'failed to get Engineer'
-  //       })
-  //     }
-  //   } catch (error) {
-  //     res.status(500).send({
-  //       success: false,
-  //       message: 'Internal server error'
-  //     })
-  //   }
-  // },
   getEngineerById: async (req, res) => {
     try {
       const { engineerId } = req.params
@@ -117,7 +118,7 @@ module.exports = {
     }
   },
 
-  searchEngineer: (req, res) => {
+  searchEngineer: (req, res, _next) => {
     let { search, limit, page } = req.query
 
     if (!limit) {
@@ -176,12 +177,18 @@ module.exports = {
     }
 
     try {
-      const result = await FilterEngineerModel(paginate)
+      let result
+
+      if (isEmpty(filter)) {
+        result = await getAllEngineerModel(paginate)
+      } else {
+        result = await FilterEngineerModel(paginate)
+      }
 
       if (result.length) {
         res.status(200).send({
           success: true,
-          message: 'account list',
+          message: 'engineer list',
           data: result
         })
       } else {

@@ -40,7 +40,7 @@ app.use('/project', projectRouter)
 app.use('/hire', hireRouter)
 
 app.get('/', (req, res) => {
-  res.send('test')
+  res.send('Get Talent - Hiring project APP')
 })
 app.listen(port, () => {
   console.log(`listen app on port ${port}`)

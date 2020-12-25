@@ -84,22 +84,35 @@ module.exports = {
     }
   },
   updatePortofolio: async (req, res) => {
+    const { prId } = req.params
     try {
-      const { prId } = req.params
-      const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
-      const setData = {
-        en_id: enId,
-        pr_aplikasi: prAplikasi,
-        pr_deskripsi: prDeskripsi,
-        pr_link_pub: prLinkPub,
-        pr_link_repo: prLinkRepo,
-        pr_tp_kerja: prTpKerja,
-        pr_type: prType,
-        pr_photo: req.file === undefined ? '' : req.file.filename
-      }
+      // const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
+      // const setData = {
+      //   en_id: enId,
+      //   pr_aplikasi: prAplikasi,
+      //   pr_deskripsi: prDeskripsi,
+      //   pr_link_pub: prLinkPub,
+      //   pr_link_repo: prLinkRepo,
+      //   pr_tp_kerja: prTpKerja,
+      //   pr_type: prType,
+      //   pr_photo: req.file === undefined ? '' : req.file.filename
+      // }
       const resultSelect = await getPortofolioByIdModel(prId)
-
       if (resultSelect.length) {
+        req.body.photo = req.file === undefined ? resultSelect[0].pr_photo : req.file.filename
+        const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
+        const setData = {
+          en_id: enId,
+          pr_aplikasi: prAplikasi,
+          pr_deskripsi: prDeskripsi,
+          pr_link_pub: prLinkPub,
+          pr_link_repo: prLinkRepo,
+          pr_tp_kerja: prTpKerja,
+          pr_type: prType,
+          pr_photo: req.body.photo
+        }
+
+        delete setData.photo
         const result = await updatePortofolioModel(prId, setData)
         if (result.affectedRows) {
           res.status(200).send({

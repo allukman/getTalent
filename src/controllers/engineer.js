@@ -74,20 +74,23 @@ module.exports = {
   },
 
   updateEngineer: async (req, res) => {
+    const { engineerId } = req.params
     try {
-      const { engineerId } = req.params
-      const { enJobTitle, enJobType, enDomisili, enDeskripsi } = req.body
-      const setData = {
-        en_job_title: enJobTitle,
-        en_job_type: enJobType,
-        en_domisili: enDomisili,
-        en_deskripsi: enDeskripsi,
-        en_photo: req.file === undefined ? '' : req.file.filename
-      }
-
       const resultSelect = await getEngineerByIdModel(engineerId)
-
       if (resultSelect.length) {
+        req.body.photo = req.file === undefined ? resultSelect[0].en_photo : req.file.filename
+
+        const { enJobTitle, enJobType, enDomisili, enDeskripsi } = req.body
+        const setData = {
+          en_job_title: enJobTitle,
+          en_job_type: enJobType,
+          en_domisili: enDomisili,
+          en_deskripsi: enDeskripsi,
+          en_photo: req.body.photo
+        }
+
+        delete setData.photo
+
         const result = await updateEngineerModel(engineerId, setData)
         if (result.affectedRows) {
           res.status(200).send({

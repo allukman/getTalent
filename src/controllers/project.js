@@ -81,19 +81,22 @@ module.exports = {
     }
   },
   updateProject: async (req, res) => {
+    const { pjId } = req.params
     try {
-      const { pjId } = req.params
-      const { comId, pjNamaProject, pjDeskripsi, pjDeadline } = req.body
-      const setData = {
-        com_id: comId,
-        pj_nama_project: pjNamaProject,
-        pj_deskripsi: pjDeskripsi,
-        pj_deadline: pjDeadline,
-        pj_gambar: req.file === undefined ? '' : req.file.filename
-      }
       const resultSelect = await getProjectByIdModel(pjId)
-
       if (resultSelect.length) {
+        req.body.photo = req.file === undefined ? resultSelect[0].pj_gambar : req.file.filename
+
+        const { comId, pjNamaProject, pjDeskripsi, pjDeadline } = req.body
+        const setData = {
+          com_id: comId,
+          pj_nama_project: pjNamaProject,
+          pj_deskripsi: pjDeskripsi,
+          pj_deadline: pjDeadline,
+          pj_gambar: req.body.photo
+        }
+
+        delete setData.photo
         const result = await updateProjectModel(pjId, setData)
         if (result.affectedRows) {
           res.status(200).send({

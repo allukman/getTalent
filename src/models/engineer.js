@@ -174,10 +174,16 @@ ORDER BY ac.acc_id `
         where = ''
       } else if (filter === 3) {
         order = 'en.en_job_type'
-        where = "WHERE en.en_job_type ='freelance' "
-      } else {
+        where = "WHERE en.en_job_title ='freelance' "
+      } else if (filter === 4) {
         order = 'en.en_job_type'
-        where = "WHERE en.en_job_type ='fulltime' "
+        where = "WHERE en.en_job_title ='fulltime' "
+      } else if (filter === 5) {
+        order = 'ac.acc_nama'
+        where = "WHERE en.en_job_title ='web developer' "
+      } else {
+        order = 'ac.acc_nama'
+        where = "WHERE en.en_job_title ='android developer' "
       }
 
       const query = `
@@ -190,8 +196,6 @@ ORDER BY ac.acc_id `
             FROM engineer en
             JOIN account ac
               ON ac.acc_id = en.acc_id
-            JOIN skill sk
-              ON sk.en_id = en.en_id
             ${where} AND en.en_job_title != ''
         ORDER BY ${order}
            LIMIT ${paginate.limit} 

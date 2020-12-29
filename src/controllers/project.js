@@ -65,7 +65,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: `project for company id ${comId}`,
-          data: result[0]
+          data: result
         })
       } else {
         res.status(404).send({

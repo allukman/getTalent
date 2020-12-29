@@ -178,13 +178,11 @@ module.exports = {
 
     try {
       let result
-
       if (isEmpty(filter)) {
         result = await getAllEngineerModel(paginate)
       } else {
         result = await FilterEngineerModel(paginate)
       }
-
       if (result.length) {
         res.status(200).send({
           success: true,

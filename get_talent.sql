@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2020 at 12:31 PM
+-- Generation Time: Dec 29, 2020 at 01:06 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.19
 
@@ -91,7 +91,7 @@ CREATE TABLE `company` (
 INSERT INTO `company` (`com_id`, `acc_id`, `com_company`, `com_position`, `com_bidang`, `com_city`, `com_description`, `com_instagram`, `com_linkedin`, `com_photo`, `com_createAt`, `com_updateAt`) VALUES
 (8, 43, 'PT. MENCARI CINTA SEJATI', 'manager', 'elektronik', 'bandung', '-', '-', '-', '-', '2020-11-18 00:49:32', '2020-11-18 00:49:32'),
 (9, 44, 'PT. INDONESIA MENCARI BAKAT', 'Human resource', 'software', 'jakarta', '-', '-', '-', '-', '2020-11-18 00:50:35', '2020-11-18 00:50:35'),
-(10, 45, 'PT. CITRA SEJAHTERA 3', 'Human resource', 'industri', 'bandung', '-', '-', '-', 'photo-1605790026768.png', '2020-11-18 00:51:50', '2020-11-18 00:51:50'),
+(10, 45, 'PT. CITRA SEJAHTERA 3', 'Human resource', 'industri', 'jakarta', '-', '-', '-', 'photo-1608866372720.png', '2020-11-18 00:51:50', '2020-11-18 00:51:50'),
 (11, 48, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:00:38', '2020-11-18 12:00:38'),
 (12, 49, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:09:38', '2020-11-18 12:09:38'),
 (14, 51, 'PT.MENCARI BAKAT', 'manager', '', '', '', '', '', '', '2020-11-18 12:11:47', '2020-11-18 12:11:47'),
@@ -122,14 +122,14 @@ CREATE TABLE `engineer` (
 --
 
 INSERT INTO `engineer` (`en_id`, `acc_id`, `en_job_title`, `en_job_type`, `en_domisili`, `en_deskripsi`, `en_photo`, `en_createAt`, `en_updateAt`) VALUES
-(9, 38, 'software engineering', 'freelance', 'jakarta', '-', '', '2020-11-18 00:44:53', '2020-11-18 00:44:53'),
-(10, 39, 'android developer', 'fulltime', 'bandung', '-', '', '2020-11-18 00:46:39', '2020-11-18 00:46:39'),
-(11, 40, 'devOps', 'freelance', 'jakarta', '-', '', '2020-11-18 00:47:15', '2020-11-18 00:47:15'),
-(12, 41, 'android developer', 'fulltime', 'jakarta', '-', '', '2020-11-18 00:48:25', '2020-11-18 00:48:25'),
-(13, 42, 'web designer', 'freelance', 'malang', '-', 'photo-1605790910368.png', '2020-11-18 00:49:04', '2020-11-18 00:49:04'),
-(16, 55, '', 'freelance', '', '', '', '2020-11-18 12:34:34', '2020-11-18 12:34:34'),
-(17, 56, '', 'freelance', '', '', '', '2020-11-18 13:21:48', '2020-11-18 13:21:48'),
-(18, 57, '', 'freelance', '', '', '', '2020-11-19 03:14:06', '2020-11-19 03:14:06');
+(9, 38, 'android developer', '', '', '', 'photo-1608864279219.png', '2020-11-18 00:44:53', '2020-11-18 00:44:53'),
+(10, 39, 'web developer', '', '', '', '', '2020-11-18 00:46:39', '2020-11-18 00:46:39'),
+(11, 40, 'android developer', '', '', '', '', '2020-11-18 00:47:15', '2020-11-18 00:47:15'),
+(12, 41, '', 'fulltime', 'makassar', '', 'photo-1609200264547.png', '2020-11-18 00:48:25', '2020-11-18 00:48:25'),
+(13, 42, '', 'fulltime', 'surabaya', '', 'photo-1609200251961.png', '2020-11-18 00:49:04', '2020-11-18 00:49:04'),
+(16, 55, '', 'fulltime', 'palembang', '', 'photo-1609199363706.png', '2020-11-18 12:34:34', '2020-11-18 12:34:34'),
+(17, 56, '', 'fulltime', '', '', 'photo-1609200131133.png', '2020-11-18 13:21:48', '2020-11-18 13:21:48'),
+(18, 57, 'web developer', 'freelance', 'manado', '', 'photo-1609200175379.png', '2020-11-19 03:14:06', '2020-11-19 03:14:06');
 
 -- --------------------------------------------------------
 
@@ -203,7 +203,7 @@ CREATE TABLE `portofolio` (
 --
 
 INSERT INTO `portofolio` (`pr_id`, `en_id`, `pr_aplikasi`, `pr_deskripsi`, `pr_link_pub`, `pr_link_repo`, `pr_tp_kerja`, `pr_type`, `pr_photo`) VALUES
-(3, 10, 'aplikasi pendeteksi warna', 'membuat aplikasi pendeteksi warna', '-', '-', '-', 'aplikasi mobile', '0'),
+(3, 12, 'aplikasi kalkulator', 'membuat aplikasi kalkulator', '-', '-', '-', 'aplikasi mobile', 'photo-16088'),
 (4, 12, 'aplikasi kalkulator', 'membuat aplikasi kalkulator', '-', '-', '-', 'aplikasi mobile', 'photo-16057'),
 (5, 12, 'aplikasi kalkulator', 'membuat aplikasi kalkulator', '-', '-', '-', 'aplikasi mobile', 'photo-16057');
 
@@ -229,8 +229,8 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`pj_id`, `com_id`, `pj_nama_project`, `pj_deskripsi`, `pj_deadline`, `pj_gambar`, `pj_createAt`, `pj_updateAt`) VALUES
-(12, 8, 'aplikasi pemutar musik', 'membuat aplikasi pemutar musik', '2021-01-01', 'photo-1605833665240.png', '2020-11-18 01:29:57', '2020-11-18 01:29:57'),
-(13, 8, 'aplikasi pencari jodoh', 'membuat aplikasi pencari jodoh', '2021-01-01', 'photo-1605833560102.png', '2020-11-20 00:52:40', '2020-11-20 00:52:40');
+(12, 9, 'aplikasi pemutar musik', 'membuat aplikasi pemutar musik', '2021-01-01', 'photo-1608866427807.png', '2020-11-18 01:29:57', '2020-11-18 01:29:57'),
+(13, 9, 'aplikasi pemutar musik', 'membuat aplikasi pemutar musik', '2021-01-01', 'photo-1605833560102.png', '2020-11-20 00:52:40', '2020-11-20 00:52:40');
 
 -- --------------------------------------------------------
 

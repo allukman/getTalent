@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2020 at 02:04 AM
+-- Generation Time: Dec 30, 2020 at 02:32 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.19
 
@@ -74,14 +74,14 @@ INSERT INTO `account` (`acc_id`, `acc_nama`, `acc_email`, `acc_phone`, `acc_pass
 CREATE TABLE `company` (
   `com_id` int(10) UNSIGNED NOT NULL,
   `acc_id` int(10) UNSIGNED NOT NULL,
-  `com_company` varchar(100) NOT NULL,
-  `com_position` varchar(50) NOT NULL,
-  `com_bidang` varchar(50) NOT NULL,
-  `com_city` varchar(50) NOT NULL,
-  `com_description` text NOT NULL,
-  `com_instagram` varchar(50) NOT NULL,
-  `com_linkedin` varchar(50) NOT NULL,
-  `com_photo` text NOT NULL,
+  `com_company` varchar(100) DEFAULT NULL,
+  `com_position` varchar(50) DEFAULT NULL,
+  `com_bidang` varchar(50) DEFAULT NULL,
+  `com_city` varchar(50) DEFAULT NULL,
+  `com_description` text DEFAULT NULL,
+  `com_instagram` varchar(50) DEFAULT NULL,
+  `com_linkedin` varchar(50) DEFAULT NULL,
+  `com_photo` text DEFAULT NULL,
   `com_createAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `com_updateAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

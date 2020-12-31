@@ -3,7 +3,17 @@ const { createExperienceModel, getExperienceByIdModel, getExperienceByEngIdModel
 module.exports = {
   createExperience: async (req, res) => {
     try {
-      const result = await createExperienceModel(req.body)
+      const { enId, exPosisi, exCompany, exStart, exEnd, exDeskripsi } = req.body
+      const setData = {
+        en_id: enId,
+        ex_posisi: exPosisi,
+        ex_company: exCompany,
+        ex_start: exStart,
+        ex_end: exEnd,
+        ex_deskripsi: exDeskripsi,
+        ex_photo: req.file === undefined ? '' : req.file.filename
+      }
+      const result = await createExperienceModel(setData)
       if (result.affectedRows) {
         res.status(200).send({
           success: true,
@@ -73,16 +83,28 @@ module.exports = {
     }
   },
   updateExperience: async (req, res) => {
+    const { xpId } = req.params
     try {
-      const { xpId } = req.params
       const resultSelect = await getExperienceByIdModel(xpId)
-
       if (resultSelect.length) {
-        const result = await updateExperienceModel(xpId, req.body)
+        req.body.photo = req.file === undefined ? resultSelect[0].ex_photo : req.file.filename
+        const { enId, exPosisi, exCompany, exStart, exEnd, exDeskripsi } = req.body
+        const setData = {
+          en_id: enId,
+          ex_posisi: exPosisi,
+          ex_company: exCompany,
+          ex_start: exStart,
+          ex_end: exEnd,
+          ex_deskripsi: exDeskripsi,
+          ex_photo: req.body.photo
+        }
+
+        delete setData.photo
+        const result = await updateExperienceModel(xpId, setData)
         if (result.affectedRows) {
           res.status(200).send({
             status: true,
-            message: `skill With ID ${xpId} has been update`
+            message: `Experience With ID ${xpId} has been update`
           })
         } else {
           res.status(400).send({
@@ -93,7 +115,7 @@ module.exports = {
       } else {
         res.status(400).send({
           success: false,
-          message: `skill with id ${xpId} not Found`
+          message: `Experience with id ${xpId} not Found`
         })
       }
     } catch {

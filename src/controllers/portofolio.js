@@ -68,7 +68,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: `portofolio for id ${engineerId}`,
-          data: result[0]
+          data: result
         })
       } else {
         res.status(404).send({
@@ -86,17 +86,6 @@ module.exports = {
   updatePortofolio: async (req, res) => {
     const { prId } = req.params
     try {
-      // const { enId, prAplikasi, prDeskripsi, prLinkPub, prLinkRepo, prTpKerja, prType } = req.body
-      // const setData = {
-      //   en_id: enId,
-      //   pr_aplikasi: prAplikasi,
-      //   pr_deskripsi: prDeskripsi,
-      //   pr_link_pub: prLinkPub,
-      //   pr_link_repo: prLinkRepo,
-      //   pr_tp_kerja: prTpKerja,
-      //   pr_type: prType,
-      //   pr_photo: req.file === undefined ? '' : req.file.filename
-      // }
       const resultSelect = await getPortofolioByIdModel(prId)
       if (resultSelect.length) {
         req.body.photo = req.file === undefined ? resultSelect[0].pr_photo : req.file.filename

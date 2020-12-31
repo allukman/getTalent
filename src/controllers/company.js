@@ -59,7 +59,7 @@ module.exports = {
       if (resultSelect.length) {
         req.body.photo = req.file === undefined ? resultSelect[0].com_photo : req.file.filename
 
-        const { comCompany, comPosition, comBidang, comCity, comDescription, comInstagram, comLinkedin } = req.body
+        const { comCompany, comPosition, comBidang, comCity, comDescription, comInstagram, comLinkedin, comGithub } = req.body
         const setData = {
           com_company: comCompany,
           com_position: comPosition,
@@ -68,6 +68,7 @@ module.exports = {
           com_description: comDescription,
           com_instagram: comInstagram,
           com_linkedin: comLinkedin,
+          com_github: comGithub,
           com_photo: req.body.photo
         }
 

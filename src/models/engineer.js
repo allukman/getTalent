@@ -1,3 +1,4 @@
+// const { getAccountById } = require('../controllers/account')
 const db = require('../helpers/db')
 
 const { getSkillNameByEngIdModel } = require('../models/skill')
@@ -25,10 +26,13 @@ module.exports = {
       en.en_id,
       ac.acc_id,
       ac.acc_nama,
+      ac.acc_email,
+      ac.acc_phone,
       en.en_job_title,
       en.en_job_type,
       en.en_domisili,
       en.en_photo,
+      en.en_deskripsi,
       sk.sk_nama_skill
  FROM engineer en
  JOIN account ac
@@ -50,9 +54,11 @@ ORDER BY ac.acc_id `
               en_id: item.en_id,
               ac_id: item.acc_id,
               ac_name: item.acc_nama,
+              ac_email: item.acc_email,
               en_job_title: item.en_job_title,
               en_job_type: item.en_job_type,
               en_domicile: item.en_domisili,
+              en_deskripsi: item.en_deskripsi,
               en_profile: item.en_photo,
               en_skill: skill
             }
@@ -74,7 +80,11 @@ ORDER BY ac.acc_id `
              en.en_job_title,
              en.en_job_type,
              en.en_photo,
-             en.en_domisili
+             en.en_domisili,
+             en.en_instagram,
+             en.en_github,
+             en.en_gitlab,
+             en.en_photo
         FROM engineer en
         JOIN account ac
           ON ac.acc_id = en.acc_id
@@ -86,6 +96,39 @@ ORDER BY ac.acc_id `
           resolve(results)
         } else {
           reject(error)
+        }
+      })
+    })
+  },
+
+  getEngineerByAccountIdModel: (accountId) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+      SELECT en.en_id,
+             ac.acc_id,
+             ac.acc_nama,
+             ac.acc_email,
+             ac.acc_phone,
+             en.en_job_title,
+             en.en_job_type,
+             en.en_domisili,
+             en.en_instagram,
+             en.en_github,
+             en.en_gitlab,
+             en.en_photo,
+             en.en_deskripsi
+        FROM account ac
+        JOIN engineer en
+          ON en.acc_id = ac.acc_id
+       WHERE ac.?
+    `
+
+      db.query(query, { acc_id: accountId }, (error, results, _fields) => {
+        if (!error) {
+          resolve(results)
+        } else {
+          reject(error)
+          console.log(error)
         }
       })
     })
@@ -192,7 +235,8 @@ ORDER BY ac.acc_id `
                ac.acc_nama,
                en.en_job_title,
                en.en_job_type,
-               en.en_domisili
+               en.en_domisili,
+               en.en_photo
             FROM engineer en
             JOIN account ac
               ON ac.acc_id = en.acc_id

@@ -1,4 +1,4 @@
-const { getAllEngineerModel, getEngineerByIdModel, updateEngineerModel, searchEngineerModel, FilterEngineerModel } = require('../models/engineer')
+const { getAllEngineerModel, getEngineerByIdModel, updateEngineerModel, searchEngineerModel, FilterEngineerModel, getEngineerByAccountIdModel } = require('../models/engineer')
 const isEmpty = require('lodash.isempty')
 module.exports = {
   getAllEngineer: async (req, res) => {
@@ -74,6 +74,31 @@ module.exports = {
     }
   },
 
+  getEngineerByAccountId: async (req, res) => {
+    try {
+      const { accountId } = req.params
+      const result = await getEngineerByAccountIdModel(accountId)
+
+      if (result.length) {
+        res.status(200).send({
+          success: true,
+          message: 'Engineer list',
+          data: result
+        })
+      } else {
+        res.status(400).send({
+          success: false,
+          message: `engineer with id ${accountId} not found`
+        })
+      }
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error'
+      })
+    }
+  },
+
   updateEngineer: async (req, res) => {
     const { engineerId } = req.params
     try {
@@ -81,12 +106,15 @@ module.exports = {
       if (resultSelect.length) {
         req.body.photo = req.file === undefined ? resultSelect[0].en_photo : req.file.filename
 
-        const { enJobTitle, enJobType, enDomisili, enDeskripsi } = req.body
+        const { enJobTitle, enJobType, enDomisili, enDeskripsi, enInstagram, enGithub, enGitlab } = req.body
         const setData = {
           en_job_title: enJobTitle,
           en_job_type: enJobType,
           en_domisili: enDomisili,
           en_deskripsi: enDeskripsi,
+          en_instagram: enInstagram,
+          en_github: enGithub,
+          en_gitlab: enGitlab,
           en_photo: req.body.photo
         }
 

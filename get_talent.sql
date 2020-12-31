@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2020 at 03:12 PM
+-- Generation Time: Dec 31, 2020 at 03:37 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.3.19
 
@@ -184,7 +184,7 @@ CREATE TABLE `hire` (
   `hr_price` bigint(12) NOT NULL,
   `hr_message` text NOT NULL,
   `hr_status` enum('wait','reject','approve') NOT NULL,
-  `hr_date_confirm` date NOT NULL DEFAULT current_timestamp(),
+  `hr_date_confirm` timestamp NOT NULL DEFAULT current_timestamp(),
   `hr_createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -193,7 +193,7 @@ CREATE TABLE `hire` (
 --
 
 INSERT INTO `hire` (`hr_id`, `en_id`, `pj_id`, `hr_price`, `hr_message`, `hr_status`, `hr_date_confirm`, `hr_createdAt`) VALUES
-(1, 1, 1, 1000000, 'membuat aplikasi pencari jodoh', 'approve', '0000-00-00', '2020-12-31 14:09:32');
+(1, 1, 1, 1000000, 'membuat aplikasi pencari jodoh', 'approve', '0000-00-00 00:00:00', '2020-12-31 14:09:32');
 
 -- --------------------------------------------------------
 

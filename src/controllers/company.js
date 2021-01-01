@@ -61,8 +61,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: 'Company list',
-          result: `${result.length}`,
-          data: result
+          data: result[0]
         })
       } else {
         res.status(400).send({

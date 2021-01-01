@@ -77,14 +77,16 @@ ORDER BY ac.acc_id `
       SELECT en.en_id,
              ac.acc_id,
              ac.acc_nama,
+             ac.acc_email,
+             ac.acc_phone,
              en.en_job_title,
              en.en_job_type,
-             en.en_photo,
              en.en_domisili,
              en.en_instagram,
              en.en_github,
              en.en_gitlab,
-             en.en_photo
+             en.en_photo,
+             en.en_deskripsi
         FROM engineer en
         JOIN account ac
           ON ac.acc_id = en.acc_id
@@ -129,6 +131,28 @@ ORDER BY ac.acc_id `
         } else {
           reject(error)
           console.log(error)
+        }
+      })
+    })
+  },
+
+  getEngineerIdByAccountIdModel: (accountId) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+      SELECT en.en_id,
+             ac.acc_id,
+             ac.acc_nama,
+             ac.acc_email
+        FROM account ac
+        JOIN engineer en
+          ON en.acc_id = ac.acc_id
+       WHERE ac.?
+    `
+      db.query(query, { acc_id: accountId }, (error, results, _fields) => {
+        if (!error) {
+          resolve(results)
+        } else {
+          reject(error)
         }
       })
     })

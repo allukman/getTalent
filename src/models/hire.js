@@ -29,7 +29,8 @@ module.exports = {
              hr.hr_price,
              hr.hr_message,
              hr.hr_status,
-             hr.hr_date_confirm
+             hr.hr_createdAt,
+             pj.pj_deadline
       FROM hire hr
       JOIN project pj
       ON hr.pj_id = pj.pj_id
@@ -56,7 +57,8 @@ module.exports = {
              hr.hr_price,
              hr.hr_message,
              hr.hr_status,
-             hr.hr_date_confirm
+             hr.hr_createdAt,
+             pj.pj_deadline
       FROM hire hr
       JOIN project pj
       ON hr.pj_id = pj.pj_id

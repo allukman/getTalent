@@ -200,10 +200,10 @@ module.exports = {
       if (dataUser.length >= 1) {
         const checkPassword = await bcrypt.compareSync(accPassword, dataUser[0].acc_password)
         if (checkPassword) {
-          const { acc_id, acc_email, acc_level, acc_phone, en_id } = dataUser[0]
+          const { acc_id, acc_email, acc_level, acc_phone, acc_nama } = dataUser[0]
           let payload = {
             acc_id,
-            en_id,
+            acc_nama,
             acc_email,
             acc_level,
             acc_phone

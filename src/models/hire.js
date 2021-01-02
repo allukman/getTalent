@@ -22,9 +22,18 @@ module.exports = {
   getHireByEngIdModel: (engineerId) => {
     return new Promise((resolve, reject) => {
       const query = `
-            SELECT *
-              FROM hire
-             WHERE ?
+      SELECT hr.hr_id,
+             hr.en_id,
+             hr.pj_id,
+             pj.pj_nama_project,
+             hr.hr_price,
+             hr.hr_message,
+             hr.hr_status,
+             hr.hr_date_confirm
+      FROM hire hr
+      JOIN project pj
+      ON hr.pj_id = pj.pj_id
+      WHERE hr.?
           `
 
       db.query(query, { en_id: engineerId }, (error, results, _fields) => {
@@ -40,9 +49,18 @@ module.exports = {
   getHireByProjectIdModel: (projectId) => {
     return new Promise((resolve, reject) => {
       const query = `
-            SELECT *
-              FROM hire
-             WHERE ?
+      SELECT hr.hr_id,
+             hr.en_id,
+             hr.pj_id,
+             pj.pj_nama_project,
+             hr.hr_price,
+             hr.hr_message,
+             hr.hr_status,
+             hr.hr_date_confirm
+      FROM hire hr
+      JOIN project pj
+      ON hr.pj_id = pj.pj_id
+      WHERE hr.?
           `
 
       db.query(query, { pj_id: projectId }, (error, results, _fields) => {

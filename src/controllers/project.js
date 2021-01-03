@@ -40,7 +40,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: `project for id ${pjId}`,
-          data: result
+          data: result[0]
         })
       } else {
         res.status(404).send({

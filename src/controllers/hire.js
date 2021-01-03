@@ -108,12 +108,12 @@ module.exports = {
         const result = await updateHireModel(hireId, req.body)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: 'data has been update'
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Data '
           })
         }

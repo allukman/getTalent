@@ -58,7 +58,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: 'Engineer list',
-          data: result
+          data: result[0]
         })
       } else {
         res.status(400).send({

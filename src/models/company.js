@@ -29,7 +29,27 @@ module.exports = {
 
   getCompanyByIdModel: (comId) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM company WHERE ? '
+      const query = `
+      SELECT com.com_id,
+              ac.acc_id,
+              ac.acc_nama,
+              ac.acc_email,
+              ac.acc_phone,
+              com.com_company,
+              com.com_position,
+              com.com_bidang,
+              com.com_city,
+              com.com_description,
+              com.com_instagram,
+              com.com_linkedin,
+              com.com_github,
+              com.com_photo,
+              com.com_createAt,
+              com.com_updateAt
+        FROM company com
+        JOIN account ac
+          ON ac.acc_id = com.acc_id
+          WHERE ?`
 
       db.query(query, { com_id: comId }, (error, results, _fields) => {
         if (!error) {

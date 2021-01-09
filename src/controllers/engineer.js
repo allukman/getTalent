@@ -171,43 +171,6 @@ module.exports = {
     }
   },
 
-  searchEngineer: (req, res, _next) => {
-    let { search, limit, page } = req.query
-
-    if (!limit) {
-      limit = 50
-    } else {
-      limit = parseInt(limit)
-    }
-
-    if (!page) {
-      page = 1
-    } else {
-      page = parseInt(page)
-    }
-
-    const rules = {
-      search: search,
-      limit: limit,
-      offset: (page - 1) * limit
-    }
-
-    searchEngineerModel(rules, result => {
-      if (result.length) {
-        res.status(200).send({
-          success: true,
-          message: 'account list',
-          data: result
-        })
-      } else {
-        res.status(404).send({
-          success: false,
-          message: 'item not found'
-        })
-      }
-    })
-  },
-
   FilterEngineer: async (req, res, _next) => {
     let { filter, limit, page } = req.query
 

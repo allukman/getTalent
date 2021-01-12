@@ -231,21 +231,18 @@ ORDER BY ac.acc_id `
       let where
 
       if (filter === 0) {
-        order = 'ac.acc_nama'
+        order = 'ac.acc_nama ASC'
         where = ''
       } else if (filter === 1) {
-        order = 'sk_nama_skill '
-        where = ''
-      } else if (filter === 2) {
         order = 'en.en_domisili'
         where = ''
+      } else if (filter === 2) {
+        order = 'en.en_job_type'
+        where = "WHERE en.en_job_type ='freelance' "
       } else if (filter === 3) {
         order = 'en.en_job_type'
-        where = "WHERE en.en_job_title ='freelance' "
+        where = "WHERE en.en_job_type ='fulltime' "
       } else if (filter === 4) {
-        order = 'en.en_job_type'
-        where = "WHERE en.en_job_title ='fulltime' "
-      } else if (filter === 5) {
         order = 'ac.acc_nama'
         where = "WHERE en.en_job_title ='web developer' "
       } else {

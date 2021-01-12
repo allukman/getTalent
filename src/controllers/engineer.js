@@ -172,7 +172,7 @@ module.exports = {
   },
 
   FilterEngineer: async (req, res, _next) => {
-    let { filter, limit, page } = req.query
+    let { search, filter, limit, page } = req.query
 
     if (!limit) {
       limit = 10
@@ -187,6 +187,7 @@ module.exports = {
     }
 
     const paginate = {
+      search: search,
       filter: filter,
       limit: limit,
       offset: (page - 1) * limit
@@ -195,7 +196,7 @@ module.exports = {
     try {
       let result
       if (isEmpty(filter)) {
-        result = await getAllEngineerModel(paginate)
+        result = await searchEngineerModel(paginate)
       } else {
         result = await FilterEngineerModel(paginate)
       }

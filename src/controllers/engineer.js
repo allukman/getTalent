@@ -197,8 +197,10 @@ module.exports = {
       let result
       if (isEmpty(filter)) {
         result = await searchEngineerModel(paginate)
-      } else {
+      } else if (isEmpty(search)) {
         result = await FilterEngineerModel(paginate)
+      } else {
+        result = await getAllEngineerModel(paginate)
       }
       if (result.length) {
         res.status(200).send({

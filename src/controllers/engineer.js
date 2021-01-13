@@ -195,12 +195,12 @@ module.exports = {
 
     try {
       let result
-      if (isEmpty(filter)) {
-        result = await searchEngineerModel(paginate)
-      } else if (isEmpty(search)) {
-        result = await FilterEngineerModel(paginate)
-      } else {
+      if (isEmpty(filter) && isEmpty(search)) {
         result = await getAllEngineerModel(paginate)
+      } else if (isEmpty(filter)) {
+        result = await searchEngineerModel(paginate)
+      } else {
+        result = await FilterEngineerModel(paginate)
       }
       if (result.length) {
         res.status(200).send({

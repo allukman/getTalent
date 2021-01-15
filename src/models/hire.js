@@ -13,6 +13,7 @@ module.exports = {
         if (!error) {
           resolve(results)
         } else {
+          console.log(error)
           reject(error)
         }
       })
@@ -102,6 +103,19 @@ module.exports = {
           resolve(results)
         } else {
           reject(error)
+        }
+      })
+    })
+  },
+
+  checkHireModel: (engineerId, projectId) => {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM hire WHERE en_id = ${engineerId} AND pj_id = ${projectId}`, (err, result, fields) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          console.log(err)
+          reject(new Error(err))
         }
       })
     })

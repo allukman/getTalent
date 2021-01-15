@@ -1,20 +1,28 @@
 
-const { createHireModel, getHireByEngIdModel, getHireByProjectIdModel, updateHireModel, getHireByIdModel } = require('../models/hire')
+const { createHireModel, getHireByEngIdModel, getHireByProjectIdModel, updateHireModel, getHireByIdModel, checkHireModel } = require('../models/hire')
 
 module.exports = {
   createHire: async (req, res) => {
     try {
-      const result = await createHireModel(req.body)
-      if (result.affectedRows) {
-        res.status(200).send({
-          success: true,
-          message: 'Success add hiring process!'
+      const checkHire = await checkHireModel(req.body.en_id, req.body.pj_id)
+      if (checkHire.length) {
+        res.status(500).send({
+          success: false,
+          message: 'This engineer has been Hired for this project'
         })
       } else {
-        res.status(400).send({
-          success: false,
-          message: 'Submit failed!'
-        })
+        const result = await createHireModel(req.body)
+        if (result.affectedRows) {
+          res.status(200).send({
+            success: true,
+            message: 'Success add hiring process!'
+          })
+        } else {
+          res.status(400).send({
+            success: false,
+            message: 'Submit failed!'
+          })
+        }
       }
     } catch {
       res.status(500).send({

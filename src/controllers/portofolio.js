@@ -106,7 +106,7 @@ module.exports = {
         if (result.affectedRows) {
           res.status(200).send({
             status: true,
-            message: `skill With ID ${prId} has been update`
+            message: `Portofolio With ID ${prId} has been update`
           })
         } else {
           res.status(400).send({
@@ -117,7 +117,7 @@ module.exports = {
       } else {
         res.status(400).send({
           success: false,
-          message: `skill with id ${prId} not Found`
+          message: `Portofolio with id ${prId} not Found`
         })
       }
     } catch {
@@ -136,18 +136,18 @@ module.exports = {
         if (result.affectedRows) {
           res.status(200).send({
             success: true,
-            message: `account with id ${prId} has been deleted`
+            message: `Portofolio with id ${prId} has been deleted`
           })
         } else {
           res.status(404).send({
             success: false,
-            message: `account with id ${prId} not found`
+            message: `Portofolio with id ${prId} not found`
           })
         }
       } else {
         res.status(404).send({
           success: false,
-          message: `account with id ${prId} not found`
+          message: `Portofolio with id ${prId} not found`
         })
       }
     } catch (error) {

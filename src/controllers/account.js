@@ -60,7 +60,7 @@ module.exports = {
       if (result.length) {
         res.status(200).send({
           success: true,
-          message: 'project-list',
+          message: 'Account list',
           data: result
         })
       } else {
@@ -145,7 +145,7 @@ module.exports = {
         } else {
           res.status(400).send({
             status: false,
-            message: 'Failed to Update Data '
+            message: 'Failed to Update Account'
           })
         }
       } else {

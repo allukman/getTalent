@@ -124,45 +124,4 @@ module.exports = {
       })
     }
   }
-  // updateCompany: async (req, res) => {
-  //   try {
-  //     const { comId } = req.params
-  //     const { comCompany, comPosition, comBidang, comCity, comDescription, comInstagram, comLinkedin } = req.body
-  //     const setData = {
-  //       com_company: comCompany,
-  //       com_position: comPosition,
-  //       com_bidang: comBidang,
-  //       com_city: comCity,
-  //       com_description: comDescription,
-  //       com_instagram: comInstagram,
-  //       com_linkedin: comLinkedin,
-  //       com_photo: req.file === undefined ? '' : req.file.filename
-  //     }
-  //     const resultSelect = await getCompanyByIdModel(comId)
-  //     if (resultSelect.length) {
-  //       const result = await updateCompanyModel(comId, setData)
-  //       if (result.affectedRows) {
-  //         res.status(200).send({
-  //           status: true,
-  //           message: `company With ID ${comId} has been update`
-  //         })
-  //       } else {
-  //         res.status(400).send({
-  //           status: false,
-  //           message: 'Failed to Update Data '
-  //         })
-  //       }
-  //     } else {
-  //       res.status(400).send({
-  //         success: false,
-  //         message: `company with id ${comId} not Found`
-  //       })
-  //     }
-  //   } catch (error) {
-  //     res.status(500).send({
-  //       success: false,
-  //       message: 'Internal server error'
-  //     })
-  //   }
-  // }
 }

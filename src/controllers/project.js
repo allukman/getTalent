@@ -131,18 +131,18 @@ module.exports = {
         if (result.affectedRows) {
           res.status(200).send({
             success: true,
-            message: `account with id ${pjId} has been deleted`
+            message: `Project with id ${pjId} has been deleted`
           })
         } else {
           res.status(404).send({
             success: false,
-            message: `account with id ${pjId} not found`
+            message: `Project with id ${pjId} not found`
           })
         }
       } else {
         res.status(404).send({
           success: false,
-          message: `account with id ${pjId} not found`
+          message: `Project with id ${pjId} not found`
         })
       }
     } catch (error) {

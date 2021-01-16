@@ -100,12 +100,12 @@ module.exports = {
         const result = await updateProjectModel(pjId, setData)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: `project With ID ${pjId} has been update`
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Data '
           })
         }

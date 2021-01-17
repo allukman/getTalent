@@ -91,7 +91,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: `hiring for id ${hireId}`,
-          data: result
+          data: result[0]
         })
       } else {
         res.status(404).send({

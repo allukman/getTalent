@@ -42,7 +42,7 @@ module.exports = {
         res.status(200).send({
           success: true,
           message: `experience for id ${xpId}`,
-          data: result
+          data: result[0]
         })
       } else {
         res.status(404).send({

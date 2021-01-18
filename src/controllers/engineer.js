@@ -148,12 +148,12 @@ module.exports = {
         const result = await updateEngineerModel(engineerId, setData)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: `engineer With ID ${engineerId} has been update`
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Data '
           })
         }

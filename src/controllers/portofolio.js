@@ -105,12 +105,12 @@ module.exports = {
         const result = await updatePortofolioModel(prId, setData)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: `Portofolio With ID ${prId} has been update`
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Data '
           })
         }

@@ -102,12 +102,12 @@ module.exports = {
         const result = await updateCompanyModel(comId, setData)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: `company With ID ${comId} has been update`
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Data '
           })
         }

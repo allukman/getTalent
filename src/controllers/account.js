@@ -139,12 +139,12 @@ module.exports = {
         const result = await updateAccountModel(accountId, setData)
         if (result.affectedRows) {
           res.status(200).send({
-            status: true,
+            success: true,
             message: `account With ID ${accountId} has been update`
           })
         } else {
           res.status(400).send({
-            status: false,
+            success: false,
             message: 'Failed to Update Account'
           })
         }

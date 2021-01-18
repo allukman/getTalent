@@ -234,7 +234,7 @@ ORDER BY ac.acc_id `
         order = 'ac.acc_nama ASC'
         where = ''
       } else if (filter === 1) {
-        order = 'en.en_domisili'
+        order = 'en.en_domisili ASC'
         where = ''
       } else if (filter === 2) {
         order = 'en.en_job_type'

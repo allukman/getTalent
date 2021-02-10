@@ -183,7 +183,8 @@ ORDER BY ac.acc_id `
         sk.sk_nama_skill,
         en.en_job_title,
         en.en_job_type,
-        en.en_domisili
+        en.en_domisili,
+        en.en_photo
         FROM engineer en 
         JOIN account ac 
           ON (ac.acc_id = en.acc_id)
@@ -215,7 +216,7 @@ ORDER BY ac.acc_id `
               en_skill: skill
             }
           }
-
+          console.log(data)
           resolve(data)
         } else {
           reject(error)
@@ -285,6 +286,7 @@ ORDER BY ac.acc_id `
               en_skill: skill
             }
           }
+          console.log(data)
           resolve(data)
         } else {
           reject(error)
